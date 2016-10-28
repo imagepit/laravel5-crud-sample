@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Blog;
+use Maknz\Slack\Facades\Slack;
 
 class BlogController extends Controller
 {
@@ -47,6 +48,7 @@ class BlogController extends Controller
         $blog->title = $request->title;
         $blog->description = $request->description;
         $blog->save();
+        Slack::send('記事が投稿されたよ！');
         return redirect()->route('blog.index')->with('alert-success','保存しました。');
     }
 
